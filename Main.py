@@ -10,7 +10,6 @@ from datetime import datetime
 from XMLRefact import *
 
 
-
 def print_week(list_fio):
     fio_list = list_fio[:1]
     date_priz = list_fio[1:]
@@ -21,22 +20,30 @@ def print_week(list_fio):
             str_zvan = "Ефрейтор"
         else:
             str_zvan = "Рядовой"
+        if int(str(res_date.days)) > 365:
+            str_zvan = "Дембель наступил!!"
+
         res_str = "ФИО: " + fio_list[0][i] + "\n"
-        res_str += "Звание:\t" + str_zvan + "\n\n"
-        res_str += "*** Прошло ***\n"
-        res_str += "Дней прошло:\t" + str(res_date.days) + "\n"
-        res_str += "Недель прошло:\t" + str(round(res_date.days/7, 2)) + "\n"
-        res_str += "Месяцев прошло:\t" + str(round(res_date.days/30, 1)) + "\n"
-        res_str += "Итог:\t\t" + str(round(res_date.days * 100 / 365, 1)) + "%\n\n"
-        res_str += "*** Осталось ***\n"
-        res_str += "Дней осталось:\t" + str(365 - res_date.days) + "\n"
-        res_str += "Недель осталось:\t" + str(52 - round(res_date.days / 7, 2)) + "\n"
-        res_str += "Месяцев осталось:\t" + str(12 - round(res_date.days / 30, 1)) + "\n"
-        res_str += "Итог:\t\t" + str(100 - round(res_date.days * 100 / 365, 1)) + "%\n"
-        res_str += "***********************\n"
-        print(res_str)
-        list_res[0].append(str_zvan + " " + fio_list[0][i])
-        list_res[1].append(res_date.days)
+        if res_date.days > 365:
+            res_str += str_zvan + "\n\n"
+            list_res[0].append(str_zvan + " " + fio_list[0][i])
+            list_res[1].append(365)
+        else:
+            res_str += "Звание:\t" + str_zvan + "\n\n"
+            res_str += "*** Прошло ***\n"
+            res_str += "Дней прошло:\t" + str(res_date.days) + "\n"
+            res_str += "Недель прошло:\t" + str(round(res_date.days/7, 2)) + "\n"
+            res_str += "Месяцев прошло:\t" + str(round(res_date.days/30, 1)) + "\n"
+            res_str += "Итог:\t\t" + str(round(res_date.days * 100 / 365, 1)) + "%\n\n"
+            res_str += "*** Осталось ***\n"
+            res_str += "Дней осталось:\t" + str(365 - res_date.days) + "\n"
+            res_str += "Недель осталось:\t" + str(52 - round(res_date.days / 7, 2)) + "\n"
+            res_str += "Месяцев осталось:\t" + str(12 - round(res_date.days / 30, 1)) + "\n"
+            res_str += "Итог:\t\t" + str(100 - round(res_date.days * 100 / 365, 1)) + "%\n"
+            res_str += "***********************\n"
+            print(res_str)
+            list_res[0].append(str_zvan + " " + fio_list[0][i])
+            list_res[1].append(res_date.days)
     create_graph(list_res[0], list_res[1])
 
 
